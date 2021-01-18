@@ -1,0 +1,212 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <div class="row"><h3>Add New Song to SOAT</h3></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="card card-body">
+                <form action="{{ url_for('add_song') }}" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="songsname" placeholder="Enter the Name of Song">
+                    </div>
+                    <label>Producers:</label>
+                    <div class="form-group">
+
+                        <select type="text" class="form-control" name="producer" >
+                            {% for data in producerlist %}
+                            <option>{{ data.producertag }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Artists:</label>
+                        <select type="text" class="form-control" name="artistname" >
+                            {% for data in artistlist %}
+                            <option>{{ data.artistname }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Mix Artists:</label>
+                        <select type="text" class="form-control" name="mixartistname" >
+                            {% for data in mixerlist %}
+                            <option>{{ data.artist_name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Albums:</label>
+                        <select type="text" class="form-control" name="albumname" >
+                            <option>-</option>
+                            {% for data in albumlist %}
+                            <option>{{ data.album_name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="songscale" placeholder="SongsScale">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="duration" placeholder="Duration">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="genre" placeholder="Genre">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="releaseyear" placeholder="ReleaseYear">
+                    </div>
+
+
+                    <button class="btn btn-primary btn-block">
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <caption>ALL SONGS</caption>
+                <thead>
+                <tr>
+                    <td>Song</td>
+                    <td>Producer</td>
+                    <td>Artist</td>
+                    <td>Mix Artist</td>
+                    <td>Songs Scale</td>
+                    <td>Duration</td>
+                    <td>Genre</td>
+                    <td>Release Year</td>
+                    <td>Album</td>
+                    <td>Action</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in songs %}
+                    <tr>
+                        <td>{{ data.songname }}</td>
+                        <td>{{ data.producer }}</td>
+                        <td>{{ data.artist }}</td>
+                        <td>{{ data.mixartist }}</td>
+                        <td>{{ data.song_scale }}</td>
+                        <td>{{ data.duration }}</td>
+                        <td>{{ data.genre }}</td>
+                        <td>{{ data.release_year }}</td>
+                        <td>{{ data.albumname }}</td>
+                        <td width="130">
+                            <a href="/edit/{{ data.song_id }}" class="btn btn-secondary btn-sm">edit</a>
+                            <a href="/delete/{{ data.song_id }}" class="btn btn-danger btn-delete btn-sm">delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <br><br><br>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <caption>Artists Information</caption>
+                <thead>
+                <tr>
+                    <td>Artist Name</td>
+                    <td>Real Name</td>
+                    <td>Indie or Not</td>
+                    <td>Number of Songs</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data2 in artists %}
+                    <tr>
+                        <td>{{ data2.artistname }}</td>
+                        <td>{{ data2.firstname + ' ' + data2.lastname}}</td>
+                        <td>{{ data2.is_indie }}</td>
+                        <td>{{ data2.songsnumber }}</td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <caption>Producers Information</caption>
+                <thead>
+                <tr>
+                    <td>Producer Tag</td>
+                    <td>Real Name</td>
+                    <td>Label Name</td>
+                    <td>Number of Songs</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data3 in producers %}
+                    <tr>
+                        <td>{{ data3.producertag }}</td>
+                        <td>{{ data3.firstname + ' ' + data3.lastname }}</td>
+                        <td>{{ data3.labelname }}</td>
+                        <td>{{ data3.songsnumber }}</td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <caption>MixArtists Information</caption>
+                <thead>
+                <tr>
+                    <td>Mix Artist Name</td>
+                    <td>Real Name</td>
+                    <td>İs Simple or Not</td>
+                    <td>Number of Songs</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data4 in mixers %}
+                    <tr>
+                        <td>{{ data4.artist_name }}</td>
+                        <td>{{ data4.firstname + ' ' + data4.lastname }}</td>
+                        <td>{{ data4.is_simple_mixer }}</td>
+                        <td>{{ data4.songsnumber }}</td>
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body">
+        <form action="/update/{{song.song_id}}" method="POST">
+          <label>Song</label>
+          <div class="form-group">
+
+                <input type="text" class="form-control" name="songname" value="{{song.songname}} " readonly>
+          </div>
+          <label>Producer</label>
+          <div class="form-group">
+               <input type="text" class="form-control" name="producer" value="{{song.producer}}  " readonly>
+          </div>
+
+          <label>Artist</label>
+          <div class="form-group">
+                <input type="text" class="form-control" name="artist" value="{{song.artist}}" readonly>
+          </div>
+
+          <div class="form-group">
+                <label>Mix Artist</label>
+                <input type="text" class="form-control" name="mixartist" value="{{song.mixartist}}" readonly>
+          </div>
+
+          <div class="form-group">
+                <label>Song Scale</label>
+                <input type="text" class="form-control" name="songscale" value="{{song.song_scale}}">
+          </div>
+          <div class="form-group">
+                <label>Duration</label>
+                <input type="text" class="form-control" name="duration" value="{{song.duration}}" readonly>
+          </div>
+          <div class="form-group">
+                <label>Genre</label>
+                <input type="text" class="form-control" name="genre" value="{{song.genre}}">
+          </div>
+          <div class="form-group">
+                <label>Release Year</label>
+                <input type="text" class="form-control" name="releaseyear" value="{{song.release_year}}" readonly>
+          </div>
+          <div class="form-group">
+                <label>Album Name</label>
+                <input type="text" class="form-control" name="albumname" value="{{song.albumname}}" readonly>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+{% endblock %}

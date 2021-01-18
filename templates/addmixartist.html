@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="card card-body">
+        <form action="/addmixartistcomplete" method="POST">
+
+          <label>Mix Artist Name</label>
+          <div class="form-group">
+                <input type="text" class="form-control" name="mixartistname">
+          </div>
+
+          <label>User Mail</label>
+          <div class="form-group">
+               <input type="text" class="form-control" name="mixartistmail" >
+          </div>
+
+          <p><label>Is he/she/they simple mixer ?</label></p>
+          <div class="form-group">
+              <input type="radio" id="yes" name="issimple" value="yes">
+              <label for="yes">YES</label>
+              <input type="radio" id="no" name="issimple" value="no">
+              <label for="no">NO</label>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">
+              ADD
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+{% endblock %}
